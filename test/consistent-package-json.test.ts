@@ -57,6 +57,10 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
         directory: `packages/${packageName}`,
       });
     });
+
+    it('specifies if it has sideEffects', () => {
+      expect(packageJSON.sideEffects === true || packageJSON.sideEffects === false);
+    });
   });
 });
 
