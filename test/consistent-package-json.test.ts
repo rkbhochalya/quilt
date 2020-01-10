@@ -22,6 +22,11 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
       expect(packageJSON.description).not.toBeUndefined();
     });
 
+    it('specifies Quilt deep-link homepage', () => {
+      expect(packageJSON.homepage)
+        .toBe(`https://github.com/Shopify/quilt/blob/master/packages/${packageName}/README.md`);
+    });
+
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
