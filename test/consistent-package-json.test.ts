@@ -61,6 +61,14 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
     it('specifies if it has sideEffects', () => {
       expect(packageJSON.sideEffects === true || packageJSON.sideEffects === false);
     });
+
+    it('specifies the expected types', () => {
+      if(packageName === 'graphql-persisted') {
+        return; // FIXME: Address this in graphql-persisted
+      }
+
+      expect(packageJSON.types).toBe('dist/src/index.d.ts');
+    });
   });
 });
 
