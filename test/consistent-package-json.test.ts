@@ -42,6 +42,13 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
+
+    it('specifies the expected publishConfig', () => {
+      expect(packageJSON.publishConfig).toEqual({
+        access: "public",
+        "@shopify:registry": "https://registry.npmjs.org",
+      });
+    });
   });
 });
 
