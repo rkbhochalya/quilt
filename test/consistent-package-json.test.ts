@@ -8,6 +8,10 @@ packages.push(readTemplate());
 
 packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
   describe(packageJSONPath, () => {
+    it('specifies Shopify as author', () => {
+      expect(packageJSON.author).toBe('Shopify Inc.');
+    });
+
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
