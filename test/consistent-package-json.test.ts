@@ -18,6 +18,10 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
       });
     });
 
+    it('specifies a description', () => {
+      expect(packageJSON.description).not.toBeUndefined();
+    });
+
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
