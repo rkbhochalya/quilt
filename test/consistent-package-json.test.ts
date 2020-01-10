@@ -69,6 +69,10 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
 
       expect(packageJSON.types).toBe('dist/src/index.d.ts');
     });
+
+    it('specifies a version', () => {
+      expect(packageJSON.version).not.toBeUndefined();
+    });
   });
 });
 
