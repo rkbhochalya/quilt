@@ -2,10 +2,12 @@ import {readJSONSync} from 'fs-extra';
 import {join, resolve} from 'path';
 import glob from 'glob';
 
-const packages = readPackages();
+const packages = readPackages()
+// Ensure consistency with packages, and with template
+packages.push(readTemplate());
 
-packages.forEach(({packageName, packageJSON}) => {
-  describe(`${packageName}'s package.json`, () => {
+packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
+  describe(packageJSONPath, () => {
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
@@ -19,10 +21,26 @@ function readPackages() {
 
   return glob
     .sync(join(packagesPath, '*', 'package.json'))
-    .map((packageJSONPath) => {
-      const packageName = packageJSONPath.slice(packageStartIndex, packageEndIndex);
-      const packageJSON = readJSONSync(packageJSONPath);
+    .map((absolutePackageJSONPath) => {
+      const packageName = absolutePackageJSONPath.slice(packageStartIndex, packageEndIndex);
+      const packageJSON = readJSONSync(absolutePackageJSONPath);
+      const packageJSONPath = absolutePackageJSONPath.replace(packagesPath, 'packages');
 
-      return {packageName, packageJSON};
+      return {
+        packageName,
+        packageJSON,
+        packageJSONPath,
+      };
     });
+}
+
+function readTemplate()  {
+  const packageJSONPath = join('templates', 'package.hbs.json');
+  const absolutePackageJSONPath = resolve(__dirname, '..', packageJSONPath);
+
+  return {
+    packageName: '{{name}}',
+    packageJSON: readJSONSync(absolutePackageJSONPath),
+    packageJSONPath,
+  }
 }
