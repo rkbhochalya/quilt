@@ -12,6 +12,12 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
       expect(packageJSON.author).toBe('Shopify Inc.');
     });
 
+    it('specifies Quilt Issues as bugs URL', () => {
+      expect(packageJSON.bugs).toEqual({
+        url: 'https://github.com/Shopify/quilt/issues',
+      });
+    });
+
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
