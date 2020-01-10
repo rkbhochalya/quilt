@@ -49,6 +49,14 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
         "@shopify:registry": "https://registry.npmjs.org",
       });
     });
+
+    it('specifies a repository deep-linking into the Quilt monorepo', () => {
+      expect(packageJSON.repository).toEqual({
+        type: "git",
+        url: "git+https://github.com/Shopify/quilt.git",
+        directory: `packages/${packageName}`,
+      });
+    });
   });
 });
 
