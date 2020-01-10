@@ -31,6 +31,14 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
       expect(packageJSON.license).toBe('MIT');
     });
 
+    it('specifies the expected main', () => {
+      if(packageName === 'graphql-persisted') {
+        return; // FIXME: Address this in graphql-persisted
+      }
+
+      expect(packageJSON.main).toBe('dist/src/index.js');
+    });
+
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
