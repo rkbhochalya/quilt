@@ -27,6 +27,10 @@ packages.forEach(({packageName, packageJSON, packageJSONPath}) => {
         .toBe(`https://github.com/Shopify/quilt/blob/master/packages/${packageName}/README.md`);
     });
 
+    it('specifies the MIT license', () => {
+      expect(packageJSON.license).toBe('MIT');
+    });
+
     it('specifies name matching scope and path', () => {
       expect(packageJSON.name).toBe(`@shopify/${packageName}`);
     });
